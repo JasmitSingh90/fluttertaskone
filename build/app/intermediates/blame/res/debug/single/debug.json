@@ -1,26 +1,26 @@
 [
     {
-        "merged": "/MyProjNew/flutter_task_one/build/app/intermediates/res/merged/debug/mipmap-xxhdpi_ic_launcher.png.flat",
-        "source": "/MyProjNew/flutter_task_one/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png"
+        "merged": "/newProj/flutter_task_one/build/app/intermediates/res/merged/debug/mipmap-hdpi_ic_launcher.png.flat",
+        "source": "/newProj/flutter_task_one/android/app/src/main/res/mipmap-hdpi/ic_launcher.png"
     },
     {
-        "merged": "/MyProjNew/flutter_task_one/build/app/intermediates/res/merged/debug/mipmap-hdpi_ic_launcher.png.flat",
-        "source": "/MyProjNew/flutter_task_one/android/app/src/main/res/mipmap-hdpi/ic_launcher.png"
+        "merged": "/newProj/flutter_task_one/build/app/intermediates/res/merged/debug/mipmap-xxxhdpi_ic_launcher.png.flat",
+        "source": "/newProj/flutter_task_one/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png"
     },
     {
-        "merged": "/MyProjNew/flutter_task_one/build/app/intermediates/res/merged/debug/drawable_launch_background.xml.flat",
-        "source": "/MyProjNew/flutter_task_one/android/app/src/main/res/drawable/launch_background.xml"
+        "merged": "/newProj/flutter_task_one/build/app/intermediates/res/merged/debug/drawable_launch_background.xml.flat",
+        "source": "/newProj/flutter_task_one/android/app/src/main/res/drawable/launch_background.xml"
     },
     {
-        "merged": "/MyProjNew/flutter_task_one/build/app/intermediates/res/merged/debug/mipmap-xxxhdpi_ic_launcher.png.flat",
-        "source": "/MyProjNew/flutter_task_one/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png"
+        "merged": "/newProj/flutter_task_one/build/app/intermediates/res/merged/debug/mipmap-mdpi_ic_launcher.png.flat",
+        "source": "/newProj/flutter_task_one/android/app/src/main/res/mipmap-mdpi/ic_launcher.png"
     },
     {
-        "merged": "/MyProjNew/flutter_task_one/build/app/intermediates/res/merged/debug/mipmap-mdpi_ic_launcher.png.flat",
-        "source": "/MyProjNew/flutter_task_one/android/app/src/main/res/mipmap-mdpi/ic_launcher.png"
+        "merged": "/newProj/flutter_task_one/build/app/intermediates/res/merged/debug/mipmap-xxhdpi_ic_launcher.png.flat",
+        "source": "/newProj/flutter_task_one/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png"
     },
     {
-        "merged": "/MyProjNew/flutter_task_one/build/app/intermediates/res/merged/debug/mipmap-xhdpi_ic_launcher.png.flat",
-        "source": "/MyProjNew/flutter_task_one/android/app/src/main/res/mipmap-xhdpi/ic_launcher.png"
+        "merged": "/newProj/flutter_task_one/build/app/intermediates/res/merged/debug/mipmap-xhdpi_ic_launcher.png.flat",
+        "source": "/newProj/flutter_task_one/android/app/src/main/res/mipmap-xhdpi/ic_launcher.png"
     }
 ]

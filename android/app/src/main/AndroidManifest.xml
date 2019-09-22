@@ -29,5 +29,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        <service android:enabled="true" android:exported="true"  android:name="com.example.flutter_task_one.AppService" />
     </application>
 </manifest>
