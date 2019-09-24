@@ -29,10 +29,6 @@ class ButtonFlat extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _buildFlatButton();
-  }
-
-  Widget _buildFlatButton() {
     return FlatButton(
       onPressed: onPressed,
       padding: padding,

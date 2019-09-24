@@ -4,21 +4,18 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.os.PowerManager;
 import android.util.Log;
-import android.widget.Toast;
+import android.os.StrictMode;
+
+import java.util.List;
 
 import io.flutter.app.FlutterActivity;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugins.GeneratedPluginRegistrant;
 import io.flutter.plugin.common.MethodChannel;
 
-
-import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
 public class MainActivity extends FlutterActivity implements MethodChannel.MethodCallHandler {
     static final String TAG = "flutter_task";
@@ -33,7 +30,30 @@ public class MainActivity extends FlutterActivity implements MethodChannel.Metho
         super.onCreate(savedInstanceState);
         GeneratedPluginRegistrant.registerWith(this);
 
+        if (android.os.Build.VERSION.SDK_INT > 9)
+        {
+            StrictMode.ThreadPolicy policy = new
+                    StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
+
+
         new MethodChannel(getFlutterView(), CHANNEL).setMethodCallHandler(this::onMethodCall);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        if (serviceConnected) {
+            unbindService(connection);
+            serviceConnected = false;
+        }
     }
 
     private void connectToService() {
@@ -48,31 +68,6 @@ public class MainActivity extends FlutterActivity implements MethodChannel.Metho
                 keepResult = null;
             }
         }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        // if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-        //     Context context = getApplicationContext();
-        //     String packageName = context.getPackageName();
-        //     PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-        //     if (!pm.isIgnoringBatteryOptimizations(packageName)) {
-        //         Toast.makeText(context, "This app needs to be whitelisted", Toast.LENGTH_LONG).show();
-        //         Intent intent = new Intent();
-        //         intent.setAction(android.provider.Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
-        //         intent.setFlags(FLAG_ACTIVITY_NEW_TASK);
-        //         intent.setData(Uri.parse("package:" + packageName));
-        //         context.startActivity(intent);
-        //     }
-        // }
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        unbindService(connection);
-        serviceConnected = false;
     }
 
     private ServiceConnection connection = new ServiceConnection() {
@@ -104,9 +99,14 @@ public class MainActivity extends FlutterActivity implements MethodChannel.Metho
                 connectToService();
                 keepResult = result;
             } else if (serviceConnected) {
-                if (call.method.equals("getImageData")) {
-                    //int sec = appService.getCurrentSeconds();
-                    result.success("Image byte array data received!!!");
+                if (call.method.equals("getImagesByteArrayData")) {
+                    List<byte[]> imagesByteArrayData = appService.getImagesByteArrayData(call.argument("imageURLs"));
+
+                    result.success(imagesByteArrayData);
+                } else if (call.method.equals("toggleMediaPlayer")) {
+                    appService.toggleMediaPlayer();
+
+                    result.success(null);
                 }
             } else {
                 result.error(null, "App not connected to service", null);

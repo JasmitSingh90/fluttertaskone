@@ -12,15 +12,22 @@ import 'package:tuple/tuple.dart';
 
 import '../main.dart';
 
+/// 
 /// Main Bloc for our application, it handles the following:
 /// initialisation of app,
 /// connectivity check, possible overall error and progress handling and more
+/// 
 class AppBloc {
+
+  /// 
   /// Section: Private variables
+  /// 
   BuildContext context;
   SnackbarOverlayHandler snackbarOverlayHandler;
 
+  /// 
   /// Section: Sinks and Strems
+  /// 
   
   Sink<BuildContext> get resetContext => _resetContextController.sink;
   final _resetContextController = StreamController<BuildContext>();
@@ -63,14 +70,18 @@ class AppBloc {
     _setIsInitialProcessingController.close();
   }
 
+  /// 
   /// Section: Public Methods
+  /// 
   
   /// Init the setup work
   void setContext(BuildContext context) {
     this.context = context;
   }
 
+  /// 
   /// Section: Private Methods
+  /// 
 
   void _resetContext(BuildContext context) {
     this.context = context;
@@ -98,7 +109,7 @@ class AppBloc {
   }
 
   /// Note: Just to demonstrate the case wherein the Splash screen is displayed
-  /// while performing some task, a delay of 2 secs has been added, before taking the splash screen off
+  /// while performing some task, a delay of 2 secs has been added, before taking it off
   void _initRandomStuffs() async {
     await Future.delayed(Duration(seconds: 2));
     setInitialProcessing.add(false);
@@ -132,9 +143,9 @@ class AppBloc {
 
       // ignore io-error logging, since it will happen a lot
       if (errorObject is IOException || errorObject is TimeoutException) {
-        message = 'Connection Error';
+        message = 'Connection error';
       } else {
-        message = 'Unexpected Error';
+        message = 'Unexpected error occured :(';
       }
 
       // Note: Raise to report error
@@ -146,7 +157,7 @@ class AppBloc {
         }
       }
     } catch (e, st) {
-      // Error handling the error :) 
+      // Error, handling the error :) 
     }
   }
 

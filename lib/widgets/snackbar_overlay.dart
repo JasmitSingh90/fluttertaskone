@@ -31,8 +31,6 @@ class SnackbarOverlayHandler {
     // we close any existing overlay
     if (_isOverlayDisplayed && _currentOverlayEntry != null) _currentOverlayEntry.remove();
 
-
-
     final overlayEntry = OverlayEntrySafeRemove(
         builder: (context) => SnackbarOverlay(
               message: message,
@@ -57,7 +55,6 @@ class SnackbarOverlayHandler {
       // then we remove it
       // if the _currentOverlayEntry is the one we created, then we
       // considered there is no overlay displayed
-      //
       if (overlayEntry != null && overlayEntry.removed == false) {
         overlayEntry.remove();
         if(overlayEntry == _currentOverlayEntry) {
@@ -134,8 +131,7 @@ class _SnackbarOverlayState extends State<SnackbarOverlay> {
     return ButtonFlat(
       onPressed: widget.onDismiss,
       child: Text(
-        //Translations.of(context).text('button_dismiss'),
-        "Dismiss",
+        Translations.of(context).text('button_dismiss'),
         style: TextStyle(color: theme.kColorLightBlue),
       ),
     );

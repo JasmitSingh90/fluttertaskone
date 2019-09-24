@@ -23,7 +23,7 @@ class FlutterTaskApp extends StatelessWidget {
     return AppProvider(
       appBloc: appBloc,
       child: MaterialApp(
-        title: 'Pics n Music Demo',
+        title: 'Pics n Music',
         theme: theme.buildTheme(Theme.of(context).platform).copyWith(platform: TargetPlatform.iOS), // force iOS behaviour
         home: _buildRootPage(context),
         supportedLocales: [
@@ -42,6 +42,7 @@ class FlutterTaskApp extends StatelessWidget {
       builder: (context, snapshot) {
         if (snapshot.data) return SplashPage();
             return HomePage(
+              title: "Pics n Music",
               homeBloc: homeBloc,
             );
         },

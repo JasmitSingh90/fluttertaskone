@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Sun Sep 22 23:57:23 SGT 2019
+#Tue Sep 24 22:47:20 SGT 2019
 4.path=lib/x86_64/libflutter.so
 8.set=NATIVE_RESOURCE
 6.path=flutter_assets/FontManifest.json

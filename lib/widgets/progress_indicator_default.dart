@@ -11,10 +11,6 @@ class ProgressIndicatorDefault extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _buildMaterialProgressIndicator(context);
-  }
-
-  Widget _buildMaterialProgressIndicator(BuildContext context) {
     ThemeData base = Theme.of(context);
     return Theme(
       data: base.copyWith(accentColor: useLightStroke ? theme.kColorWhite : base.primaryColor),
