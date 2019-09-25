@@ -1,3 +1,4 @@
+
 package com.example.flutter_task_one;
 
 import android.app.Service;
@@ -80,9 +81,7 @@ public class AppService extends Service {
             for (String imageUrl : imageUrls) {
                 imageByteArrayListData.add(getByteArrayData(imageUrl));
             }
-        } catch(Exception ex) {
-            Log.i(TAG, "Error getting images");
-        }
+        } catch(Exception ex) {}
 
         return imageByteArrayListData;
     }
