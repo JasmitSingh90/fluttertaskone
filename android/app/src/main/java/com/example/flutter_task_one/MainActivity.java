@@ -1,3 +1,5 @@
+
+
 package com.example.flutter_task_one;
 
 import android.content.ComponentName;
@@ -5,7 +7,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Looper;
+import android.os.Message;
 import android.util.Log;
 import android.os.StrictMode;
 
@@ -70,6 +75,14 @@ public class MainActivity extends FlutterActivity implements MethodChannel.Metho
         }
     }
 
+    private void processResult(List<byte[]> data) {
+        if (keepResult != null) {
+            keepResult.success(data);
+            data.clear();
+            keepResult = null;
+        }
+    }
+
     private ServiceConnection connection = new ServiceConnection() {
 
         @Override
@@ -100,13 +113,31 @@ public class MainActivity extends FlutterActivity implements MethodChannel.Metho
                 keepResult = result;
             } else if (serviceConnected) {
                 if (call.method.equals("getImagesByteArrayData")) {
-                    List<byte[]> imagesByteArrayData = appService.getImagesByteArrayData(call.argument("imageURLs"));
 
-                    result.success(imagesByteArrayData);
+                    Handler mHandler = new Handler(Looper.getMainLooper()) {
+                        @Override
+                        public void handleMessage(Message message) {
+                            if (keepResult == null) keepResult = result; // Update the keep result, if null
+                            processResult((List<byte[]>) message.obj);
+                        }
+                    };
+
+                    Runnable runnable = new Runnable() {
+                        @Override
+                        public void run() {
+                            List<byte[]> imagesByteArrayData = appService.getImagesByteArrayData(call.argument("imageURLs"));
+                            Message message = mHandler.obtainMessage(1, imagesByteArrayData);
+                            message.sendToTarget();
+                        }
+                    };
+
+                    mHandler.postDelayed(runnable, 400);
+
                 } else if (call.method.equals("toggleMediaPlayer")) {
                     appService.toggleMediaPlayer();
 
                     result.success(null);
+                    result.error(null, "Error while toggling media player", null);
                 }
             } else {
                 result.error(null, "App not connected to service", null);

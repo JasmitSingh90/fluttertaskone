@@ -4,6 +4,10 @@
         "source": "/newProj/flutter_task_one/android/app/src/main/res/mipmap-hdpi/ic_launcher.png"
     },
     {
+        "merged": "/newProj/flutter_task_one/build/app/intermediates/res/merged/debug/drawable_splash.png.flat",
+        "source": "/newProj/flutter_task_one/android/app/src/main/res/drawable/splash.png"
+    },
+    {
         "merged": "/newProj/flutter_task_one/build/app/intermediates/res/merged/debug/mipmap-xxxhdpi_ic_launcher.png.flat",
         "source": "/newProj/flutter_task_one/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png"
     },

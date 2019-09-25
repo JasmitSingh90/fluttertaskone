@@ -18,6 +18,7 @@ class HomeBloc {
   /// 
   final AppBloc appBloc;
   BuildContext context;
+  bool isConnected;
   
   /// 
   /// Section: Private variables
@@ -39,6 +40,9 @@ class HomeBloc {
 
   Sink get toggleMediaPlayer => _toggleMediaPlayerController.sink;
   final _toggleMediaPlayerController = StreamController();
+
+  Stream<bool> get isInErrorState => _isInErrorStateSubject.stream;
+  final _isInErrorStateSubject = BehaviorSubject<bool>.seeded(false);
 
   HomeBloc({
     @required this.appBloc,
@@ -79,9 +83,11 @@ class HomeBloc {
   /// Connect to the service
   Future<void> connectToService() async {
     try {
+      _isInErrorStateSubject.add(false); // Reset the error flag
       await _platform.invokeMethod<void>('connect');
       _connectedToService = true; // Set the flag
     } on Exception catch (e, st) {
+      _isInErrorStateSubject.add(true); // Set the error flag
       _connectedToService = false; // Reset the flag
       appBloc.showApiServiceError.add(Tuple2(e, st)); // Display Error
       return;
@@ -96,19 +102,23 @@ class HomeBloc {
     final appBloc = AppProvider.of(context); // Get the application provider   
 
     try {
-      // Connect to the service, if not connected
-      if (!_connectedToService) await connectToService();
-     
-      // All good, now raise a call to get the data with the required arguments
-      List<dynamic> imagesByteArrayData = await _platform.invokeMethod<List<dynamic>>('getImagesByteArrayData', 
-      {"imageURLs" : _getImageUrls()});
 
-      // Convert to the Uint8List format in an order to make it work with MemoryImage widget
-      imagesByteArrayData.forEach((imageByte) {
-        imageByteArrayResult.add(Uint8List.fromList(imageByte));
-      });
+        _isInErrorStateSubject.add(false); // Reset the error flag
+
+        // Connect to the service, if not connected
+        if (!_connectedToService) await connectToService();
+      
+        // All good, now raise a call to get the data with the required arguments
+        List<dynamic> imagesByteArrayData = await _platform.invokeMethod<List<dynamic>>('getImagesByteArrayData', 
+        {"imageURLs" : _getImageUrls()});
+
+        // Convert to the Uint8List format in an order to make it work with MemoryImage widget
+        imagesByteArrayData.forEach((imageByte) {
+          imageByteArrayResult.add(Uint8List.fromList(imageByte));
+        });
       
     } on Exception catch (e, st) {
+        _isInErrorStateSubject.add(true); // Set the error flag
         appBloc.showApiServiceError.add(Tuple2(e, st)); // Display Error
     } 
     

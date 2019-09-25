@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_task_one/util/translations.dart';
 
 import '../home_bloc.dart';
 import '../home_provider.dart';
@@ -29,7 +30,8 @@ class HomePageMediaButtonState extends State<HomePageMediaButton> {
 
     return FloatingActionButton(
         onPressed: () => _toggleMediaPlayerIcon(homeBloc),
-        tooltip: (_showPlayIconAndHint) ? 'Pause the music' : 'Play the music',
+        tooltip: (_showPlayIconAndHint) ? Translations.of(context).text('message_pause_music') : 
+        Translations.of(context).text('message_play_music'),
         child: (_showPlayIconAndHint)
             ? Icon(Icons.pause)
             : Icon(Icons.play_arrow));

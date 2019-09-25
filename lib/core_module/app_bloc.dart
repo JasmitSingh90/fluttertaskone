@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_task_one/common/constants.dart';
 import 'package:flutter_task_one/util/translations.dart';
 import 'package:flutter_task_one/widgets/snackbar_overlay.dart';
 import 'package:rxdart/rxdart.dart';
@@ -24,6 +25,7 @@ class AppBloc {
   /// 
   BuildContext context;
   SnackbarOverlayHandler snackbarOverlayHandler;
+  double _snackbarBottomOffset = kUISnackbarBottomPaddingHome;
 
   /// 
   /// Section: Sinks and Strems
@@ -79,6 +81,11 @@ class AppBloc {
     this.context = context;
   }
 
+  /// Generic method to display the snackbar overlay 
+  void displaySnackbarOverlay(String message, {bool autoDismiss = false}) {
+    snackbarOverlayHandler.showSnackbarOverlay(message: message, bottomOffset: _snackbarBottomOffset, autoDismiss: autoDismiss);
+  }  
+
   /// 
   /// Section: Private Methods
   /// 
@@ -103,7 +110,7 @@ class AppBloc {
       _isConnectedSubject.add(isConnected);
 
       if (!isConnected && snackbarOverlayHandler != null) {
-        _displaySnackbarOverlay(Translations.of(context).text('error_message_offline'));
+        displaySnackbarOverlay(Translations.of(context).text('error_message_offline'));
       }
     });
   }
@@ -111,7 +118,7 @@ class AppBloc {
   /// Note: Just to demonstrate the case wherein the Splash screen is displayed
   /// while performing some task, a delay of 2 secs has been added, before taking it off
   void _initRandomStuffs() async {
-    await Future.delayed(Duration(seconds: 2));
+    //await Future.delayed(Duration(seconds: 2));
     setInitialProcessing.add(false);
   }
 
@@ -143,9 +150,9 @@ class AppBloc {
 
       // ignore io-error logging, since it will happen a lot
       if (errorObject is IOException || errorObject is TimeoutException) {
-        message = 'Connection error';
+        message = Translations.of(context).text('error_network');
       } else {
-        message = 'Unexpected error occured :(';
+        message = Translations.of(context).text('error_unexpected');
       }
 
       // Note: Raise to report error
@@ -153,18 +160,13 @@ class AppBloc {
 
       if (showAsSnackbar) {
         if (message != null) {
-          _displaySnackbarOverlay(message, autoDismiss: true);
+          displaySnackbarOverlay(message, autoDismiss: true);
         }
       }
     } catch (e, st) {
       // Error, handling the error :) 
     }
   }
-
-  /// Generic method to display the snackbar overlay 
-  void _displaySnackbarOverlay(String message, {bool autoDismiss = false}) {
-    snackbarOverlayHandler.showSnackbarOverlay(message: message, autoDismiss: autoDismiss);
-  }  
 }
 
 

@@ -1,0 +1,11 @@
+{
+     "button_dismiss": "Dismiss",
+     "error_message_offline": "Looks like you are offline. Please check your network connection and try again.",
+     "error_unexpected":"Unexpected error occured",
+     "error_network":"Network error occured",
+     "message_pause_music": "Pause the music",
+     "message_play_music": "Play the music",
+     "message_something_went_wrong": "Woops, something went wrong please try again later",
+     "message_please_wait": "Please wait",
+     "message_hold_refresh": "*Press and hold screen to refresh data"
+ }

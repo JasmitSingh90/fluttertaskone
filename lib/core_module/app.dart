@@ -1,8 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_task_one/home_module/home.dart';
 import 'package:flutter_task_one/home_module/home_bloc.dart';
 import 'package:flutter_task_one/splash_module/splash.dart';
+import 'package:flutter_task_one/util/app_text_override.dart';
+import 'package:flutter_task_one/util/translations.dart';
 import '../theme/theme.dart' as theme;
 
 import 'app_bloc.dart';
@@ -26,9 +29,23 @@ class FlutterTaskApp extends StatelessWidget {
         title: 'Pics n Music',
         theme: theme.buildTheme(Theme.of(context).platform).copyWith(platform: TargetPlatform.iOS), // force iOS behaviour
         home: _buildRootPage(context),
+        localizationsDelegates: [
+          const TranslationsDelegate(),
+          const AppTextDelegate(),
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
         supportedLocales: [
           const Locale('en', 'US'),
         ],
+        localeResolutionCallback: (Locale locale, Iterable<Locale> supportedLocales) {
+          for (Locale supportedLocale in supportedLocales) {
+            if (supportedLocale.languageCode == locale.languageCode || supportedLocale.countryCode == locale.countryCode) {
+              return supportedLocale;
+            }
+          }
+          return supportedLocales.first;
+        },
       ),
     );
   }

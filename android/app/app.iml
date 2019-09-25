@@ -136,5 +136,7 @@
     <orderEntry type="module" module-name="connectivity" />
     <orderEntry type="library" name="Gradle: org.apache.http.legacy-android-28" level="project" />
     <orderEntry type="module" module-name="connectivity" />
+    <orderEntry type="module" module-name="connectivity" />
+    <orderEntry type="module" module-name="connectivity" />
   </component>
 </module>

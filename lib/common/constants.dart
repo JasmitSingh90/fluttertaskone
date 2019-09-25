@@ -1,2 +1,2 @@
 
-const kUISnackbarBottomPaddingHome = 46.0;
+const kUISnackbarBottomPaddingHome = 86.0;

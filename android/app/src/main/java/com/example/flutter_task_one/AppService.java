@@ -60,31 +60,28 @@ public class AppService extends Service {
     }
 
     // Method to toggle media player play mode
-    public void toggleMediaPlayer() {
-        try {
-            if (player != null) {
-                if (!player.isPlaying()) {
-                    // Start the player
-                    player.start();
-                } else {
-                    // Stop the player
-                    player.pause();
-                }
+    public void toggleMediaPlayer() throws Exception {
+        if (player != null) {
+            if (!player.isPlaying()) {
+                // Start the player
+                player.start();
+            } else {
+                // Stop the player
+                player.pause();
             }
-        } catch (Exception e) {
-            Log.d(TAG, "In toggleMediaPlayer error: " + e);
         }
     }
 
     // Method to get Images byte array data
     public List<byte[]> getImagesByteArrayData(List<String> imageUrls) {
+        
         List<byte[]> imageByteArrayListData = new ArrayList<>();
         try {
             for (String imageUrl : imageUrls) {
                 imageByteArrayListData.add(getByteArrayData(imageUrl));
             }
-        } catch (Exception e) {
-            Log.d(TAG, "In get image data error: " + e);
+        } catch(Exception ex) {
+            Log.i(TAG, "Error getting images");
         }
 
         return imageByteArrayListData;
@@ -101,8 +98,10 @@ public class AppService extends Service {
             while (-1 != (n = inputStream.read(buffer))) {
                 output.write(buffer, 0, n);
             }
+            output.close();
         }
 
         return output.toByteArray();
     }
 }
+

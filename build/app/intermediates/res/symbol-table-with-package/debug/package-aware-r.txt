@@ -1,4 +1,5 @@
 com.example.flutter_task_one
 drawable launch_background
+drawable splash
 mipmap ic_launcher
 style LaunchTheme
