@@ -26,6 +26,7 @@ class FlutterTaskApp extends StatelessWidget {
     return AppProvider(
       appBloc: appBloc,
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Pics n Music',
         theme: theme.buildTheme(Theme.of(context).platform).copyWith(platform: TargetPlatform.iOS), // force iOS behaviour
         home: _buildRootPage(context),
